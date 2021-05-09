@@ -1,0 +1,91 @@
+<div class="container mt-5 mb-5 pt-5" style="position: relative;">
+
+  <form (ngSubmit)="cadastrarOuAtualizar()">
+      <div class="form-row">
+          <input
+          type="hidden"
+          name="id"
+          [(ngModel)]="despesa.id"/>
+          <div class="form-group col-md-6">
+              <label for="nome">Cpf</label>
+              <input
+                  name="nome"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="despesa.nome"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="">Projeto</label>
+                <p-dropdown
+                    [options]="projetos"
+                    [(ngModel)]="projeto"
+                    name="estado"
+                    optionLabel="nome"
+                    [filter]="true"
+                    [style]="{'width':'100%'}"
+                    placeholder="Selecione o Projeto"
+                    [showClear]="true"
+                    (onChange)="listarCategorias()">
+                    <ng-template pTemplate="selectedItem">
+                        <div *ngIf="projeto">
+                            <div>{{projeto.nome}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">Categoria</label>
+                <p-dropdown
+                    [options]="categorias"
+                    [(ngModel)]="categoria"
+                    name="categoria"
+                    optionLabel="nome"
+                    [filter]="true"
+                    [style]="{'width':'100%'}">
+                    placeholder="Selecione a Categoria"
+                    <ng-template pTemplate="selectedItem">
+                        <div *ngIf="categoria">
+                            <div>{{categoria.nome}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+          <div class="form-group">
+            <label for="telefone">Valor</label>
+            <p-inputMask
+                styleClass="form-control"
+                name="telefone"
+                placeholder="$"
+                [(ngModel)]="despesa.telefone">
+            </p-inputMask>
+        </div>
+          <div class="form-group col-md-6">
+              <label for="sobrenome">Descrição</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  name="sobrenome"
+                  [(ngModel)]="despesa.sobrenome"
+              />
+          </div>
+      </div>
+      <div class="form-group" >
+          <label for="nome">Foto</label>
+          <p-fileUpload #upload
+              name="demo[]"
+              chooseLabel="Insira na nota fiscal"
+              [showUploadButton]="false"
+              [showCancelButton]="false"
+              [multiple]="false"
+              accept="image/*">
+          </p-fileUpload>
+        </div>
+      <button type="submit" class="btn"
+          [class]="operacao ? 'btn-primary' : 'btn-success'">{{ operacao ? "Cadastrar" : "Atualizar" }}
+      </button>
+      <br><br>
+      <a routerLink="/listar/despesa">Voltar para a pesquisa</a>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+{
+  "despesa":[
+    {
+  "cpf": "215.300.138-28",
+  "descricao": "Alimentação",
+  "valor": 35.00,
+  "projetoId": 1,
+  "codCategoria": 1,
+  "notaFiscal":
+    {
+      "codigoDaNota": 1
+    }
+  }
+]
+}
