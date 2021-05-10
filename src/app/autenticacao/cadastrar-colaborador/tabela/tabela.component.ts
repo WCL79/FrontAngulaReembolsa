@@ -1,7 +1,11 @@
+import { ColaboradorService } from './../colaborador.service';
+
 import { Title } from '@angular/platform-browser';
-import { DespesaService } from './../despesa.service';
+
 import { Component, OnInit } from '@angular/core';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-tabela',
@@ -10,26 +14,27 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class TabelaComponent implements OnInit {
 
-
-  despesas: any = [];
+  colaboradores: any = [];
   loading: boolean = true;
 
+
   constructor(
-    private service: DespesaService,
+    private service: ColaboradorService,
     private confirmarService: ConfirmationService,
     private messageService: MessageService,
-    private title: Title) { }
+    private title: Title
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.carregar();
   }
 
   carregar(){
     this.title.setTitle('Lista de clientes');
-    this.despesas = [];
+    this.colaboradores = [];
     this.service.listar().subscribe(resposta => {
-      this.despesas = resposta;
+      this.colaboradores = resposta;
       this.loading = false;
     });
   }
@@ -51,4 +56,5 @@ export class TabelaComponent implements OnInit {
       }
   });
   }
+
 }
