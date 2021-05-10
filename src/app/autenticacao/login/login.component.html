@@ -5,8 +5,8 @@
     <div id="login">
         <h1>Login</h1>
         <p>
-          <label for="nome_login">E-mail</label>
-          <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex.@zup.com.br"/>
+          <label for="cpf_login">Cpf</label>
+          <input id="nome_login" name="nome_login" required="required" type="text"/>
         </p>
 
         <p>
@@ -15,7 +15,7 @@
         </p>
 
         <p>
-          <input type="submit" value="Logar" routerLink="/home"/>
+          <input type="submit" value="Logar" (click)=login()/>
         </p>
 
         <p class="link">

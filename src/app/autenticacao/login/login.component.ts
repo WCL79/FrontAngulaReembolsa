@@ -1,4 +1,10 @@
+import { AutenticacaoModule } from './../autenticacao.module';
+
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AutenticacaoModel } from './autenticacao.model';
+
 
 @Component({
   selector: 'app-login',
@@ -13,9 +19,15 @@ export class LoginComponent implements OnInit {
   value2: string | undefined;
 
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+
+   }
 
   ngOnInit(): void {
   }
 
+  login(): void {
+    debugger
+    var result = this.http.post('localhost:8080/login',AutenticacaoModule);
+  }
 }

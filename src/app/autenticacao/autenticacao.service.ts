@@ -1,5 +1,8 @@
+import { AutenticacaoModule } from './autenticacao.module';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 
 
 @Injectable({
@@ -7,5 +10,4 @@ import { Injectable } from '@angular/core';
 })
 export class AutenticacaoService {
   constructor(private http: HttpClient){}
-
 }
