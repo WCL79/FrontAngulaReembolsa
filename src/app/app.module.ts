@@ -14,6 +14,7 @@ import { TabelaComponent } from './categoria/tabela/tabela.component';
 import { DespesaModule } from './despesa/despesa.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HeaderComponent } from './shared/header/header.component';
     HeaderComponent,
     FooterComponent,
     TabelaComponent,
+    PrincipalComponent,
   ],
   imports: [
     BrowserModule,
