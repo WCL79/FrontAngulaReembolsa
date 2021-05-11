@@ -1,45 +1,44 @@
-import { ColaboradorService } from './colaborador.service';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AutenticacaoService } from './../autenticacao.service';
-import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/compiler/src/core';
+import { take } from 'rxjs/operators';
+
+import { ColaboradorService } from './colaborador.service';
 
 @Component({
   selector: 'app-cadastrar-colaborador',
   templateUrl: './cadastrar-colaborador.component.html',
-  styleUrls: ['./cadastrar-colaborador.component.css']
+  styleUrls: ['./cadastrar-colaborador.component.css'],
 })
 export class CadastrarColaboradorComponent implements OnInit {
-
   colaborador: any = {
-    cpf: "",
-    email: "",
-    senha: "",
-    nomeCompleto: "",
-    cargo: "",
-    projeto:{
-      id: "",
-    endereco: {
-      nomeDoProjeto: "",
-      codigoDoProjeto: "",
-      localidade: {
-        codLocalidade: "",
-        nome: "",
+    cpf: '',
+    email: '',
+    senha: '',
+    nomeCompleto: '',
+    cargo: '',
+    projeto: {
+      id: '',
+      endereco: {
+        nomeDoProjeto: '',
+        codigoDoProjeto: '',
+        localidade: {
+          codLocalidade: '',
+          nome: '',
+        },
+        verba: '',
       },
-      verba: "",
+      banco: '',
+      numeroDoBanco: {
+        agencia: '',
+        digitoDaAgencia: '',
+        conta: '',
+        digitoDaConta: '',
+        tipoDaConta: '',
+      },
     },
-    banco: "",
-    numeroDoBanco: {
-    agencia: "",
-    digitoDaAgencia: "",
-    conta:"",
-    digitoDaConta:"",
-    tipoDaConta:""
-        }
-    },
-    dataNasc: ""
+    dataNasc: '',
   };
 
   projetos: any[] = [];
@@ -51,11 +50,12 @@ export class CadastrarColaboradorComponent implements OnInit {
   operacao: boolean = true;
 
   constructor(
-    private service: ColaboradorService,
-    private messageService: MessageService,
-    private route: ActivatedRoute,
-    private title: Title,
-    private router: Router) { }
+    private readonly service: ColaboradorService,
+    private readonly messageService: MessageService,
+    private readonly route: ActivatedRoute,
+    private readonly title: Title,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.listarProjetos();
@@ -69,66 +69,88 @@ export class CadastrarColaboradorComponent implements OnInit {
   }
 
   listarProjetos() {
-    this.service.listarProjetos().subscribe(resposta => {
-      this.projetos = <any>resposta;
-    });
+    this.service
+      .listarProjetos()
+      .pipe(take(1))
+      .subscribe((resposta) => {
+        this.projetos = <any>resposta;
+      });
   }
 
-  listarLocalidades(){
+  listarLocalidades() {
     this.localidades = [];
     let id: number = this.projeto.id;
 
-    this.service.listarLocalidades(id).subscribe(resposta => {
-      this.localidades = <any>resposta;
-      if(this.codigoZupper && this.colaborador.projeto.id == this.projeto.id){
-        this.localidade = {id: this.colaborador.projeto.localidade.id, nome: this.colaborador.projeto.localidade.nome};
-      }else{
-        this.localidade = {id: this.localidades[0].id, nome: this.localidades[0].nome};
-      }
-    });
+    this.service
+      .listarLocalidades(id)
+      .pipe(take(1))
+      .subscribe((resposta) => {
+        this.localidades = <any>resposta;
+        if (
+          this.codigoZupper &&
+          this.colaborador.projeto.id == this.projeto.id
+        ) {
+          this.localidade = {
+            id: this.colaborador.projeto.localidade.id,
+            nome: this.colaborador.projeto.localidade.nome,
+          };
+        } else {
+          this.localidade = {
+            id: this.localidades[0].id,
+            nome: this.localidades[0].nome,
+          };
+        }
+      });
   }
 
-  carregarCliente(codigoCliente: number){
-    this.service.buscarById(codigoCliente).subscribe(resposta => {
-      this.colaborador = <any>resposta;
-      this.projeto = {id: this.colaborador.endereco.estado.id, nome: this.colaborador.endereco.estado.nome};
-      this.listarLocalidades();
-      this.title.setTitle(`Edição do cliente: ${this.colaborador.id}`);
-    });
+  carregarCliente(codigoCliente: number) {
+    this.service
+      .buscarById(codigoCliente)
+      .pipe(take(1))
+      .subscribe((resposta) => {
+        this.colaborador = <any>resposta;
+        this.projeto = {
+          id: this.colaborador.endereco.estado.id,
+          nome: this.colaborador.endereco.estado.nome,
+        };
+        this.listarLocalidades();
+        this.title.setTitle(`Edição do cliente: ${this.colaborador.id}`);
+      });
   }
 
-  cadastrarOuAtualizar(){
-    if(this.operacao){
+  cadastrarOuAtualizar() {
+    if (this.operacao) {
       this.cadastrar();
-    }else{
+    } else {
       this.atualizar();
     }
   }
 
-  cadastrar(){
-
+  cadastrar() {
     this.preencherDados();
 
-    this.service.salvar(this.colaborador).subscribe(
-      resposta => {
-      this.messageService.add(
-      {
-        key: 'toast',
-        severity: 'success',
-        summary: 'CLIENTE',
-        detail: 'cadastrado com sucesso!'
-      });
-      this.limparFormulario();
-    },
-    () => {
-      this.messageService.add(
-        {
-          key: 'toast',
-          severity: 'error',
-          summary: 'ERRO',
-          detail: 'Não foi possível cadastrar o cliente!'
-        });
-    });
+    this.service
+      .salvar(this.colaborador)
+      .pipe(take(1))
+      .subscribe(
+        (resposta) => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'success',
+            summary: 'CLIENTE',
+            detail: 'cadastrado com sucesso!',
+          });
+          this.limparFormulario();
+        },
+        () => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Não foi possível cadastrar o cliente!',
+          });
+        }
+      );
   }
   preencherDados() {
     this.colaborador.projeto.id = this.projeto.id;
@@ -137,32 +159,33 @@ export class CadastrarColaboradorComponent implements OnInit {
     this.colaborador.projeto.localidade.nome = this.localidade.nome;
   }
 
-  atualizar(){
-
+  atualizar() {
     this.preencherDados();
 
-    this.service.atualizar(this.colaborador).subscribe(
-      resposta => {
-      this.messageService.add(
-      {
-        key: 'toast',
-        severity: 'success',
-        summary: 'CLIENTE',
-        detail: 'atualizado com sucesso!'
-      });
-      this.limparFormulario(); //limpar os campos
-      this.operacao = true;
-      this.router.navigate(['/listar/zupper']);
-    },
-    () => {
-      this.messageService.add(
-        {
-          key: 'toast',
-          severity: 'error',
-          summary: 'ERRO',
-          detail: 'Não foi possível cadastrar o cliente!'
-        });
-    });
+    this.service
+      .atualizar(this.colaborador)
+      .pipe(take(1))
+      .subscribe(
+        (resposta) => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'success',
+            summary: 'CLIENTE',
+            detail: 'atualizado com sucesso!',
+          });
+          this.limparFormulario(); //limpar os campos
+          this.operacao = true;
+          this.router.navigate(['/listar/zupper']);
+        },
+        () => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Não foi possível cadastrar o cliente!',
+          });
+        }
+      );
   }
 
   limparFormulario() {
@@ -172,6 +195,4 @@ export class CadastrarColaboradorComponent implements OnInit {
     this.projetos = [];
     this.listarProjetos();
   }
-
 }
-

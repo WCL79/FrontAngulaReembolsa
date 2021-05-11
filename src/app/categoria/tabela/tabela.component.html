@@ -1,12 +1,8 @@
-<div>
-  <input type="hidden" [(ngModel)]="categoria.codCategoria">
+<form [formGroup]="form">
+  <input type="hidden" formControlName="codCategoria">
   <div>
       <label for="">Codigo da categoria</label>
-      <input type="text" [(ngModel)]="c.nomeCompleto">
-  </div>
-  <div>
-      <label for="">Descrição</label>
-      <input type="text" [(ngModel)]="cliente.cpf">
+      <input type="text" formControlName="nomeCompleto">
   </div>
   <div *ngIf=operacao>
       <button type="submit" (click)=adicionar()>Adicionar</button>
@@ -14,7 +10,7 @@
   <div *ngIf=!operacao>
       <button type="submit" (click)=atualizar()>Atualizar</button>
   </div>
-</div>
+</form>
 
   <table border="1">
     <tr>

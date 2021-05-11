@@ -1,39 +1,38 @@
-import { AutenticacaoModule } from './../autenticacao.module';
-
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AutenticacaoModel } from './autenticacao.model';
-
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  hide = true;
-  operacao: boolean = true;
+  form = this.formBuilder.group({
+    cpf: ['', Validators.required],
+    senha: ['', Validators.required],
+  });
 
-  value1: string | undefined;
-  value2: string | undefined;
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router
+  ) {}
 
-  cpf: any = AutenticacaoModel;
-  senha: any = AutenticacaoModel;
-
-
-
-  constructor(private http: HttpClient) {
-
-   }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login(): void {
-    var result = this.http.post('http://localhost:8080/login',AutenticacaoModel);
-    var teste = result.toPromise().then((teste: any) => {
-      console.log("Chegou uma resposta do back");
-      console.log(teste);
-    });
-  }}
+    if (this.form.invalid) {
+      return;
+    }
+    this.httpClient
+      .post(`${environment.URL_SERVIDOR}/login`, this.form.value)
+      .pipe(take(1))
+      .subscribe((response) => {
+        this.router.navigate(['despesa']);
+      });
+  }
+}

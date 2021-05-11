@@ -1,25 +1,25 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from 'primeng/table';
+
+import { AutenticacaoRoutingModule } from './autenticacao.routing';
 import { CadastrarColaboradorComponent } from './cadastrar-colaborador/cadastrar-colaborador.component';
-import { AutenticacaoRoutes } from './autenticacao.routing';
+import { TabelaComponent } from './cadastrar-colaborador/tabela/tabela.component';
 import { LoginComponent } from './login/login.component';
 
-
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TabelaComponent } from './cadastrar-colaborador/tabela/tabela.component';
-
-
 @NgModule({
-  imports: [CommonModule,
-    AutenticacaoRoutes,
+  imports: [
+    CommonModule,
+    AutenticacaoRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
     DropdownModule,
@@ -27,10 +27,13 @@ import { TabelaComponent } from './cadastrar-colaborador/tabela/tabela.component
     FileUploadModule,
     TableModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
   ],
 
-
-  declarations: [LoginComponent, CadastrarColaboradorComponent, TabelaComponent],
+  declarations: [
+    LoginComponent,
+    CadastrarColaboradorComponent,
+    TabelaComponent,
+  ],
 })
-export class AutenticacaoModule { }
+export class AutenticacaoModule {}

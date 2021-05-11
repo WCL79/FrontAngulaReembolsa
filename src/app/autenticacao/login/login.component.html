@@ -1,28 +1,31 @@
-<div class="container" >
-
-  <div class="content">
+<div class="container-fluid">
+  <div class="row justify-content-md-center">
     <!--FORMULÁRIO DE LOGIN-->
-    <div id="login">
-        <h1>Login</h1>
-        <p>
-          <label for="">CPF</label>
-        <input type="text" [(ngModel)]="cpf.cpf">
-        </p>
+    <form class="col col-lg-6 login-form" [formGroup]="form">
+      <h1>Login</h1>
+      <div>
+        <label for="">CPF</label>
+        <input type="text" formControlName="cpf" />
+      </div>
 
-        <p>
-          <label for="">Senha</label>
-        <input type="text" [(ngModel)]="senha.senha">
-        </p>
+      <div>
+        <label for="">Senha</label>
+        <input type="text" formControlName="senha" />
+      </div>
 
-        <p>
-          <input type="submit" value="Logar" (click)=login()/>
-        </p>
+      <div>
+        <input
+          type="submit"
+          value="Logar"
+          [disabled]="!form.valid"
+          (click)="login()"
+        />
+      </div>
 
-        <p class="link">
-           Ainda não tem conta?
-          <a routerLink="/cadastrar">Cadastre-se</a>
-        </p>
-    </div>
+      <div class="link">
+        Ainda não tem conta?
+        <a routerLink="/cadastrar">Cadastre-se</a>
+      </div>
+    </form>
   </div>
 </div>
-
