@@ -2,21 +2,19 @@
   <div class="row justify-content-md-center">
     <!--FORMULÁRIO DE LOGIN-->
     <form class="col col-lg-6 login-form" [formGroup]="form">
-      <h1>Login</h1>
-      <div>
-        <label for="">CPF</label>
-        <input type="text" formControlName="cpf" />
-      </div>
+      <h1>Acessar</h1>
+      <div class="form-floating mb-3">
 
-      <div>
-        <label for="">Senha</label>
-        <input type="text" formControlName="senha" />
+        <input type="text" formControlName="cpf" placeholder="CPF"/>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" formControlName="senha" placeholder="SENHA"/>
       </div>
 
       <div>
         <input
           type="submit"
-          value="Logar"
+          value="Entre"
           [disabled]="!form.valid"
           (click)="login()"
         />
