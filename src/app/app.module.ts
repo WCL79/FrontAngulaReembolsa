@@ -13,6 +13,8 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { TabelaComponent } from './categoria/tabela/tabela.component';
+
 
 
 
@@ -20,7 +22,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    TabelaComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ConfirmDialogModule,
     DespesaModule,
     InputTextareaModule
+
   ],
   providers: [MessageService,
     Title,

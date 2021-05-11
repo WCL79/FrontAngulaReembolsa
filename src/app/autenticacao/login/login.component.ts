@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
   value1: string | undefined;
   value2: string | undefined;
 
+  cpf: any = AutenticacaoModel;
+  senha: any = AutenticacaoModel;
+
+
 
   constructor(private http: HttpClient) {
 
@@ -27,7 +31,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    debugger
-    var result = this.http.post('localhost:8080/login',AutenticacaoModule);
-  }
-}
+    var result = this.http.post('http://localhost:8080/login',AutenticacaoModel);
+    var teste = result.toPromise().then((teste: any) => {
+      console.log("Chegou uma resposta do back");
+      console.log(teste);
+    });
+  }}

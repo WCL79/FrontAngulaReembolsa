@@ -10,30 +10,30 @@ export class ColaboradorService {
   constructor(private http: HttpClient){}
 
   listar(){
-    return this.http.get(`${environment.url}`+'/zupper');
+    return this.http.get(`${environment.URLSERVIDOR}`+'/zupper');
   }
 
   buscarById(cpf: number) {
-    return this.http.get(`${environment.url}`+'/zupper/'+cpf);
+    return this.http.get(`${environment.URLSERVIDOR}`+'/zupper/'+cpf);
   }
 
   salvar(colaborador: any){
-    return this.http.post(`${environment.url}`+'/zupper', colaborador);
+    return this.http.post(`${environment.URLSERVIDOR}`+'/zupper', colaborador);
   }
 
   atualizar(colaborador: any) {
-    return this.http.put(`${environment.url}`+'/zupper/'+colaborador.cpf, colaborador);
+    return this.http.put(`${environment.URLSERVIDOR}`+'/zupper/'+colaborador.cpf, colaborador);
   }
 
   excluir(cpf: number) {
-    return this.http.delete(`${environment.url}`+'/zupper/'+cpf);
+    return this.http.delete(`${environment.URLSERVIDOR}`+'/zupper/'+cpf);
   }
 
   listarProjetos(){
-    return this.http.get(`${environment.url}`+'/projeto');
+    return this.http.get(`${environment.URLSERVIDOR}`+'/projeto');
   }
 
   listarLocalidades(id: number) {
-    return this.http.get(`${environment.url}`+'/localidade'+'?projeto='+id);
+    return this.http.get(`${environment.URLSERVIDOR}`+'/localidade'+'?projeto='+id);
   }
 }

@@ -1,0 +1,33 @@
+<div>
+  <input type="hidden" [(ngModel)]="categoria.codCategoria">
+  <div>
+      <label for="">Codigo da categoria</label>
+      <input type="text" [(ngModel)]="c.nomeCompleto">
+  </div>
+  <div>
+      <label for="">Descrição</label>
+      <input type="text" [(ngModel)]="cliente.cpf">
+  </div>
+  <div *ngIf=operacao>
+      <button type="submit" (click)=adicionar()>Adicionar</button>
+  </div>
+  <div *ngIf=!operacao>
+      <button type="submit" (click)=atualizar()>Atualizar</button>
+  </div>
+</div>
+
+  <table border="1">
+    <tr>
+        <th>Código da Categoria</th>
+        <th>Descrição</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let dado of categorias">
+        <td>{{dado.codCategoria}}</td>
+        <td>{{dado.descricao}}</td>
+        <td>
+            <button (click)=editar(dado)>Atualizar</button>
+            <button >Excluir</button>
+        </td>
+    </tr>
+</table>
