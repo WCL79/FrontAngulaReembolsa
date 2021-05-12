@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-import { CategoriaDTO } from './../dto/categoria-dto';
-import { CategoriaModel } from './../model/categoria-model';
+import { CategoriaDTO } from '../shared/dto/categoria-dto';
+import { CategoriaModel } from '../shared/model/categoria-model';
 
 @Injectable({
   providedIn: 'root',

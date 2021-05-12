@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { CategoriaMapper } from 'src/app/shared/mapper/categoria-mapper';
+import { CategoriaModel } from 'src/app/shared/model/categoria-model';
 
-import { CategoriaDTO } from './../../dto/categoria-dto';
-import { CategoriaMapper } from './../../mapper/categoria-mapper';
-import { CategoriaModel } from './../../model/categoria-model';
+import { CategoriaDTO } from '../../shared/dto/categoria-dto';
 import { CategoriaService } from './../categoria.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { CategoriaService } from './../categoria.service';
   templateUrl: './tabela.component.html',
   styleUrls: ['./tabela.component.css'],
 })
-export class TabelaComponent implements OnInit {
+export class CategoriaTabelaComponent implements OnInit {
   categorias: CategoriaModel[] = [];
   categoria: CategoriaDTO = {};
   mapper = new CategoriaMapper();

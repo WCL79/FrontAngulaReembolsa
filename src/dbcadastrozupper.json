@@ -1,38 +1,75 @@
 {
-    "zupper": [
+  "zupper": [
     {
-    "cpf": "215.300.138-28",
-    "email": "weslley.lima@zup.com.br",
-    "senha": "1234",
-    "nomeCompleto": "Weslley Lima",
-    "cargo": "OPERACIONAL",
-    "projeto": {
+      "cpf": "215.300.138-28",
+      "email": "weslley.lima@zup.com.br",
+      "senha": "1234",
+      "nomeCompleto": "Weslley Lima",
+      "cargo": "OPERACIONAL",
+      "projeto": {
         "id": 1,
         "nomeDoProjeto": "Catalisa",
         "codigoDoProjeto": "CT",
         "localidade": {
-            "codLocalidade": 1,
-            "nome": "Uberlândia"
+          "codLocalidade": 1,
+          "nome": "Uberlândia"
         },
-        "verba": 50000.0
+        "verba": 50000
+      },
+      "banco": "Banco Santander",
+      "numeroDoBanco": "321",
+      "agencia": "2",
+      "digitoDaAgencia": 123,
+      "conta": "PTOX",
+      "digitoDaConta": 2,
+      "tipoDaConta": "CORRENTE"
+    }
+  ],
+  "projeto": [
+    {
+      "id": 1,
+      "nomeDoProjeto": "Catalisa",
+      "codigoDoProjeto": "CT"
+    }
+  ],
+  "localidade": [
+    {
+      "codLocalidade": 1,
+      "nome": "Uberlândia"
+    }
+  ],
+  "login": {
+    "cpf": "215.300.138-28",
+    "senha": "1234"
+  },
+  "despesa": [
+    {
+      "id": "1",
+      "nome": "foobar1",
+      "email": "teste1@teste.com",
+      "status": "nomedostatus",
+      "projeto": "projeto1"
     },
-    "banco": "Banco Santander",
-    "numeroDoBanco": "321",
-    "agencia": "2",
-    "digitoDaAgencia": 123,
-    "conta": "PTOX",
-    "digitoDaConta": 2,
-    "tipoDaConta": "CORRENTE"
+    {
+      "id": "2",
+      "nome": "foobar2",
+      "email": "teste2@teste.com",
+      "status": "nomedostatus",
+      "projeto": "projeto2"
+    },
+    {
+      "id": "3",
+      "nome": "foobar3",
+      "email": "teste3@teste.com",
+      "status": "nomedostatus",
+      "projeto": "projeto3"
+    },
+    {
+      "id": "4",
+      "nome": "foobar4",
+      "email": "teste4@teste.com",
+      "status": "nomedostatus",
+      "projeto": "projeto4"
     }
-],
-"projeto":[
-    {"id": 1,
-        "nomeDoProjeto": "Catalisa",
-        "codigoDoProjeto": "CT"
-    }
-],
-"localidade":[{
-    "codLocalidade": 1,
-    "nome": "Uberlândia"
-    }]
+  ]
 }

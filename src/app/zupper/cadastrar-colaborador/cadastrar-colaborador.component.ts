@@ -11,30 +11,30 @@ import { ColaboradorService } from './colaborador.service';
   templateUrl: './cadastrar-colaborador.component.html',
   styleUrls: ['./cadastrar-colaborador.component.css'],
 })
-export class CadastrarColaboradorComponent implements OnInit {
+export class ZupperFormularioComponent implements OnInit {
   colaborador: any = {
-    cpf: " ",
-    email: " ",
-    senha: " ",
-    nomeCompleto: " ",
-    cargo: " ",
+    cpf: ' ',
+    email: ' ',
+    senha: ' ',
+    nomeCompleto: ' ',
+    cargo: ' ',
     projeto: {
-        id: 1,
-        nomeDoProjeto: " ",
-        codigoDoProjeto: " ",
-        localidade: {
-            codLocalidade: " ",
-            nome: " "
-       },
-        verba:"",
+      id: 1,
+      nomeDoProjeto: ' ',
+      codigoDoProjeto: ' ',
+      localidade: {
+        codLocalidade: ' ',
+        nome: ' ',
       },
-      banco: " ",
-      numeroDoBanco:"",
-      agencia:"",
-      digitoDaAgencia:"",
-      conta:"",
-      digitoDaConta:"",
-      tipoDaConta:"",
+      verba: '',
+    },
+    banco: ' ',
+    numeroDoBanco: '',
+    agencia: '',
+    digitoDaAgencia: '',
+    conta: '',
+    digitoDaConta: '',
+    tipoDaConta: '',
   };
 
   projetos: any[] = [];

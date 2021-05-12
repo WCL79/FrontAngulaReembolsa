@@ -1,18 +1,19 @@
-import { TabelaComponent } from './../despesa/tabela/tabela.component';
-import { CategoriaRoutingModule } from './categoria-routing.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CategoriaRoutingModule } from './categoria-routing.module';
+import { CategoriaTabelaComponent } from './tabela/tabela.component';
 
 @NgModule({
-  declarations: [TabelaComponent],
+  declarations: [CategoriaTabelaComponent],
   imports: [
     CommonModule,
     CategoriaRoutingModule,
     HttpClientModule,
-    FormsModule
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class CategoriaModule { }
+export class CategoriaModule {}

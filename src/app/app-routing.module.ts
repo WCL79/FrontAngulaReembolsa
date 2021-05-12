@@ -1,15 +1,33 @@
-import { PrincipalComponent } from './principal/principal.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FormularioComponent } from './despesa/formulario/formulario.component';
-import { TabelaComponent } from './despesa/tabela/tabela.component';
-
 const routes: Routes = [
-  { path: 'despesa', component: FormularioComponent },
-  { path: 'despesa/:codigo', component: FormularioComponent },
-  { path: 'listar/despesa', component: TabelaComponent },
-  { path: 'principal', component: PrincipalComponent },
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./autenticacao/autenticacao.module').then(
+        (m) => m.AutenticacaoModule
+      ),
+  },
+  {
+    path: 'despesa',
+    loadChildren: () =>
+      import('./despesa/despesa.module').then((m) => m.DespesaModule),
+  },
+  {
+    path: 'categoria',
+    loadChildren: () =>
+      import('./categoria/categoria.module').then((m) => m.CategoriaModule),
+  },
+  {
+    path: 'zupper',
+    loadChildren: () =>
+      import('./zupper/zupper.module').then((m) => m.ZupperModule),
+  },
 ];
 
 @NgModule({

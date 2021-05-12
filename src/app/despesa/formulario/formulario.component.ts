@@ -1,28 +1,27 @@
-import { DespesaService } from './../despesa.service';
-
-import { MessageService } from 'primeng/api';
-
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { take } from 'rxjs/operators';
+import { ProjetoDTO } from 'src/app/shared/dto/projeto-dto';
+
+import { DespesaService } from './../despesa.service';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
 })
-export class FormularioComponent implements OnInit {
-
-
-  despesa:any = {
-  cpf: "",
-  descricao: "",
-  valor: "",
-  projetoId: "",
-  codCategoria: "",
-  notaFiscal:""
-  }
-
+export class DespesaFormularioComponent implements OnInit {
+  despesaForm = this.formBuilder.group({
+    cpf: '',
+    descricao: '',
+    valor: '',
+    projetoId: '',
+    codCategoria: '',
+    notaFiscal: '',
+  });
 
   projetos: any[] = [];
   projeto: any;
@@ -33,11 +32,13 @@ export class FormularioComponent implements OnInit {
   operacao: boolean = true;
 
   constructor(
-    private service: DespesaService,
-    private messageService: MessageService,
-    private route: ActivatedRoute,
-    private title: Title,
-    private router: Router) { }
+    private readonly service: DespesaService,
+    private readonly messageService: MessageService,
+    private readonly route: ActivatedRoute,
+    private readonly title: Title,
+    private readonly router: Router,
+    private readonly formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.listarProjetos();
@@ -51,107 +52,122 @@ export class FormularioComponent implements OnInit {
   }
 
   listarProjetos() {
-    this.service.listarProjetos().subscribe(resposta => {
-      this.projetos = <any>resposta;
-    });
+    this.service
+      .listarProjetos()
+      .pipe(take(1))
+      .subscribe((resposta: ProjetoDTO[]) => {
+        this.projetos = resposta;
+      });
   }
 
-  listarCategorias(){
+  listarCategorias() {
     this.categorias = [];
-    let id: number = this.projeto.id;
+    const id: number = this.projeto.id;
 
-    this.service.listarCategorias(id).subscribe(resposta => {
-      this.categorias = <any>resposta;
-      if(this.codigoDespesa && this.despesa.projeto.id == this.projeto.id){
-        this.categoria = {id: this.despesa.projeto.categoria.id, nome: this.despesa.projeto.categoria.nome};
-      }else{
-        this.categoria = {id: this.categorias[0].id, nome: this.categorias[0].nome};
-      }
-    });
+    this.service
+      .listarCategorias(id)
+      .pipe(take(1))
+      .subscribe((categorias: any[]) => {
+        this.categorias = categorias;
+        if (
+          this.codigoDespesa &&
+          this.despesaForm.value.projetoId == this.projeto.id
+        ) {
+          this.categoria = {
+            id: this.projeto.categoria.id,
+            nome: this.projeto.categoria.nome,
+          };
+        } else {
+          this.categoria = {
+            id: this.categorias[0].id,
+            nome: this.categorias[0].nome,
+          };
+        }
+      });
   }
 
-  carregarDespesa(codigoDespesa: number){
-    this.service.buscarById(codigoDespesa).subscribe(resposta => {
-      this.despesa = <any>resposta;
-      this.projeto = {id: this.despesa.projeto.id, nome: this.despesa.projeto.nome};
-      this.listarCategorias();
-      this.title.setTitle(`Edição da despesa: ${this.despesa.id}`);
-    });
+  carregarDespesa(codigoDespesa: number) {
+    this.service
+      .buscarById(codigoDespesa)
+      .pipe(take(1))
+      .subscribe((resposta: any) => {
+        this.despesaForm.patchValue({
+          id: resposta.id,
+          nome: resposta.nome,
+        });
+        this.projeto = {
+          id: resposta.id,
+          nome: resposta.nome,
+        };
+        this.listarCategorias();
+        this.title.setTitle(`Edição da despesa: ${resposta.id}`);
+      });
   }
 
-  cadastrarOuAtualizar(){
-    if(this.operacao){
+  cadastrarOuAtualizar() {
+    if (this.operacao) {
       this.cadastrar();
-    }else{
+    } else {
       this.atualizar();
     }
   }
 
-  cadastrar(){
-
-    this.preencherDados();
-
-    this.service.salvar(this.despesa).subscribe(
-      resposta => {
-      this.messageService.add(
-      {
-        key: 'toast',
-        severity: 'success',
-        summary: 'CLIENTE',
-        detail: 'cadastrado com sucesso!'
-      });
-      this.limparFormulario();
-    },
-    () => {
-      this.messageService.add(
-        {
-          key: 'toast',
-          severity: 'error',
-          summary: 'ERRO',
-          detail: 'Não foi possível cadastrar o cliente!'
-        });
-    });
-  }
-  preencherDados() {
-    this.despesa.projeto.id = this.projeto.id;
-    this.despesa.projeto.nome = this.projeto.nome;
-    this.despesa.projeto.categoria.id = this.categoria.id;
-    this.despesa.projeto.categoria.nome = this.categoria.nome;
+  cadastrar() {
+    this.service
+      .salvar(this.despesaForm)
+      .pipe(take(1))
+      .subscribe(
+        (resposta) => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'success',
+            summary: 'CLIENTE',
+            detail: 'cadastrado com sucesso!',
+          });
+          this.limparFormulario();
+        },
+        () => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Não foi possível cadastrar o cliente!',
+          });
+        }
+      );
   }
 
-  atualizar(){
-
-    this.preencherDados();
-
-    this.service.atualizar(this.despesa).subscribe(
-      resposta => {
-      this.messageService.add(
-      {
-        key: 'toast',
-        severity: 'success',
-        summary: 'CLIENTE',
-        detail: 'atualizado com sucesso!'
-      });
-      this.limparFormulario(); //limpar os campos
-      this.operacao = true;
-      this.router.navigate(['listar/despesa']);
-    },
-    () => {
-      this.messageService.add(
-        {
-          key: 'toast',
-          severity: 'error',
-          summary: 'ERRO',
-          detail: 'Não foi possível cadastrar o cliente!'
-        });
-    });
+  atualizar() {
+    this.service
+      .atualizar(this.despesaForm.value)
+      .pipe(take(1))
+      .subscribe(
+        (resposta) => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'success',
+            summary: 'CLIENTE',
+            detail: 'atualizado com sucesso!',
+          });
+          this.limparFormulario(); //limpar os campos
+          this.operacao = true;
+          this.router.navigate(['listar/despesa']);
+        },
+        () => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Não foi possível cadastrar o cliente!',
+          });
+        }
+      );
   }
 
   limparFormulario() {
-    this.despesa = {};
+    this.despesaForm.reset();
     this.categorias = [];
     this.projetos = [];
     this.listarProjetos();
   }
-
 }

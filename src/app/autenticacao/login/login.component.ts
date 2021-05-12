@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       .post(`${environment.URL_SERVIDOR}/login`, this.form.value)
       .pipe(take(1))
       .subscribe((response) => {
-        this.router.navigate(['principal']);
+        this.router.navigate(['listar/despesa']);
       });
   }
 }

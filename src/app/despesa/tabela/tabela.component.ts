@@ -1,54 +1,57 @@
-import { Title } from '@angular/platform-browser';
-import { DespesaService } from './../despesa.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { take } from 'rxjs/operators';
+
+import { DespesaService } from './../despesa.service';
 
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',
-  styleUrls: ['./tabela.component.css']
+  styleUrls: ['./tabela.component.css'],
 })
-export class TabelaComponent implements OnInit {
-
-
+export class DespesaTabelaComponent implements OnInit {
   despesas: any = [];
   loading: boolean = true;
 
   constructor(
-    private service: DespesaService,
+    private despesaService: DespesaService,
     private confirmarService: ConfirmationService,
     private messageService: MessageService,
-    private title: Title) { }
+    private title: Title
+  ) {}
 
   ngOnInit() {
     this.loading = true;
     this.carregar();
   }
 
-  carregar(){
+  carregar() {
     this.title.setTitle('Lista de clientes');
     this.despesas = [];
-    this.service.listar().subscribe(resposta => {
-      this.despesas = resposta;
-      this.loading = false;
-    });
+    this.despesaService
+      .listar()
+      .pipe(take(1))
+      .subscribe((resposta) => {
+        this.despesas = resposta;
+        this.loading = false;
+      });
   }
 
-  excluir(id: number){
+  excluir(id: number) {
     this.confirmarService.confirm({
       message: 'Tem certeza que deseja excluir este cliente?',
       accept: () => {
-        this.service.excluir(id).subscribe( resposta => {
-          this.messageService.add(
-            {
-              key: 'toast',
-              severity: 'success',
-              summary: 'CLIENTE',
-              detail: 'excluído com sucesso!'
-            });
-            this.carregar();
+        this.despesaService.excluir(id).subscribe((resposta) => {
+          this.messageService.add({
+            key: 'toast',
+            severity: 'success',
+            summary: 'CLIENTE',
+            detail: 'excluído com sucesso!',
+          });
+          this.carregar();
         });
-      }
-  });
+      },
+    });
   }
 }
