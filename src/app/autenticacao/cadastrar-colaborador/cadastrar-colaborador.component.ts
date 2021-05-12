@@ -13,32 +13,28 @@ import { ColaboradorService } from './colaborador.service';
 })
 export class CadastrarColaboradorComponent implements OnInit {
   colaborador: any = {
-    cpf: '',
-    email: '',
-    senha: '',
-    nomeCompleto: '',
-    cargo: '',
+    cpf: " ",
+    email: " ",
+    senha: " ",
+    nomeCompleto: " ",
+    cargo: " ",
     projeto: {
-      id: '',
-      endereco: {
-        nomeDoProjeto: '',
-        codigoDoProjeto: '',
+        id: 1,
+        nomeDoProjeto: " ",
+        codigoDoProjeto: " ",
         localidade: {
-          codLocalidade: '',
-          nome: '',
-        },
-        verba: '',
+            codLocalidade: " ",
+            nome: " "
+       },
+        verba:"",
       },
-      banco: '',
-      numeroDoBanco: {
-        agencia: '',
-        digitoDaAgencia: '',
-        conta: '',
-        digitoDaConta: '',
-        tipoDaConta: '',
-      },
-    },
-    dataNasc: '',
+      banco: " ",
+      numeroDoBanco:"",
+      agencia:"",
+      digitoDaAgencia:"",
+      conta:"",
+      digitoDaConta:"",
+      tipoDaConta:"",
   };
 
   projetos: any[] = [];

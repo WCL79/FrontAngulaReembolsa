@@ -1,3 +1,4 @@
+import { PrincipalComponent } from './principal/principal.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,6 +9,7 @@ const routes: Routes = [
   { path: 'despesa', component: FormularioComponent },
   { path: 'despesa/:codigo', component: FormularioComponent },
   { path: 'listar/despesa', component: TabelaComponent },
+  { path: 'principal', component: PrincipalComponent },
 ];
 
 @NgModule({

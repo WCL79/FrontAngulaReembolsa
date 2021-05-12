@@ -9,7 +9,7 @@ export class ColaboradorService {
   constructor(private http: HttpClient) {}
 
   listar() {
-    return this.http.get(`${environment.URL_SERVIDOR}` + '/zupper');
+    return this.http.get(`${environment.URL_SERVIDOR}` + 'zupper');
   }
 
   buscarById(cpf: number) {
@@ -18,8 +18,7 @@ export class ColaboradorService {
 
   salvar(colaborador: any) {
     return this.http.post(
-      `${environment.URL_SERVIDOR}` + '/zupper',
-      colaborador
+      `${environment.URL_SERVIDOR}` + '/zupper', colaborador
     );
   }
 
