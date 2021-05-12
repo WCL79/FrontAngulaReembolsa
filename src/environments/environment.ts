@@ -3,12 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 import { Environment } from './environment.interface';
 
-
 export const environment: Environment = {
   production: false,
-  URL_SERVIDOR: 'http://localhost:8080'
+  URL_SERVIDOR: 'http://localhost:3000',
 };
-
 
 /*
  * For easier debugging in development mode, you can import the following file
