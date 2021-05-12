@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
-import { FileUploadModule } from 'primeng/fileupload';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
 
 import { AutenticacaoRoutingModule } from './autenticacao.routing';
 import { LoginComponent } from './login/login.component';
@@ -17,13 +11,6 @@ import { LoginComponent } from './login/login.component';
     AutenticacaoRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
-    DropdownModule,
-    InputMaskModule,
-    FileUploadModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
   ],
 
   declarations: [LoginComponent],

@@ -5,7 +5,6 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +21,6 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     ToastModule,
     ConfirmDialogModule,
-    InputTextareaModule,
   ],
   providers: [MessageService, Title, ConfirmationService],
   bootstrap: [AppComponent],
