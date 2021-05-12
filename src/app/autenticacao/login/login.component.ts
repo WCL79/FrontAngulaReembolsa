@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+
+import { AutenticacaoService } from '../autenticacao.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private readonly httpClient: HttpClient,
     private readonly formBuilder: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly autenticacaoService: AutenticacaoService
   ) {}
 
   ngOnInit(): void {}
@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.httpClient
-      .post(`${environment.URL_SERVIDOR}/login`, this.form.value)
+    this.autenticacaoService
+      .login(this.form.value)
       .pipe(take(1))
       .subscribe((response) => {
-        this.router.navigate(['listar/despesa']);
+        this.router.navigate(['despesa/lista']);
       });
   }
 }
