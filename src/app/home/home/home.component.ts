@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   carregarPaginaDespesa(): void {
-        this.router.navigate(['despesa']);
+        this.router.navigate(['despesa/novo']);
 
   }
 }

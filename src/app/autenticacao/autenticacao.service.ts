@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -12,8 +12,14 @@ export class AutenticacaoService {
 
   login(credentials: any) {
     return this.httpClient
-      .post(`${environment.URL_SERVIDOR}/login`, credentials)
-      .pipe(tap((response) => this.setToken(JSON.stringify(response))));
+      .post(`${environment.URL_SERVIDOR}/login`, credentials, {'observe': 'response'})
+      .pipe(tap((response: HttpResponse <Object>) => {
+        let token = response.headers.get("Authorization");
+
+        console.log(response);
+
+        this.setToken(token ? token : 'null');
+      }));
   }
 
   getToken() {
