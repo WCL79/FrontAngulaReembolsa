@@ -5,9 +5,9 @@ import { DespesaFormularioComponent } from './formulario/formulario.component';
 import { DespesaTabelaComponent } from './tabela/tabela.component';
 
 const routes: Routes = [
-  { path: '', component: DespesaFormularioComponent },
+  { path: 'novo', component: DespesaFormularioComponent },
   { path: 'lista', component: DespesaTabelaComponent },
-  { path: ':codigo', component: DespesaFormularioComponent },
+  { path: 'editar/:codigo', component: DespesaFormularioComponent },
 ];
 
 @NgModule({
