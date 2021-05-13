@@ -8,32 +8,32 @@
           name="nome"
           type="text"
           class="form-control"
-          formControlName="nome"
+          formControlName="cpf"
         />
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="">Projeto</label>
+          <label for="projeto">Projeto</label>
           <p-dropdown
             [options]="projetos"
             formControlName="projeto"
-            name="estado"
-            optionLabel="nome"
+            name="projeto"
+            optionLabel="nomeDoProjeto"
             [filter]="true"
             [style]="{ width: '100%' }"
             placeholder="Selecione o Projeto"
             [showClear]="true"
-            (onChange)="listarCategorias()"
+            (onChange)="listarCategorias(projetos)"
           >
             <ng-template pTemplate="selectedItem">
               <div *ngIf="projeto">
-                <div>{{ projeto.nome }}</div>
+                <div>{{ projeto.nomeDoProjeto }}</div>
               </div>
             </ng-template>
           </p-dropdown>
         </div>
         <div class="form-group col-md-6">
-          <label for="">Categoria</label>
+          <label for="categoria">Categoria</label>
           <p-dropdown
             [options]="categorias"
             formControlName="categoria"
@@ -51,31 +51,31 @@
           </p-dropdown>
         </div>
       </div>
-      <div class="form-group">
-        <label for="telefone">Valor</label>
+      <!-- <div class="form-group">
+        <label for="valor">Valor</label>
         <p-inputMask
           styleClass="form-control"
-          name="telefone"
+          name="valor"
           placeholder="$"
-          formControlName="telefone"
+          formControlName="valor"
         >
         </p-inputMask>
-      </div>
+      </div> -->
       <div class="form-group col-md-6">
-        <label for="sobrenome">Descrição</label>
+        <label for="descricao">Descrição</label>
         <input
           type="text"
           class="form-control"
-          name="sobrenome"
-          formControlName="sobrenome"
+          name="descricao"
+          formControlName="descricao"
         />
       </div>
     </div>
     <div class="form-group">
-      <label for="nome">Imagem da Nota Fiscal</label>
+      <label for="notaFiscal">Imagem da Nota Fiscal</label>
       <p-fileUpload
         #upload
-        name="demo[]"
+        name="notaFiscal"
         chooseLabel="Insira na nota fiscal"
         [showUploadButton]="false"
         [showCancelButton]="false"

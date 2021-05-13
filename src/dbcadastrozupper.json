@@ -28,8 +28,23 @@
   "projeto": [
     {
       "id": 1,
-      "nomeDoProjeto": "Catalisa",
+      "nomeDoProjeto": "Catalisa123",
       "codigoDoProjeto": "CT"
+    },
+    {
+      "id": 2,
+      "nomeDoProjeto": "Itau",
+      "codigoDoProjeto": "IT"
+    }
+  ],
+  "categoria": [
+    {
+      "id": 1,
+      "cpf": "Taxi"
+    },
+    {
+      "id": 2,
+      "nome": "Educacional"
     }
   ],
   "localidade": [
@@ -39,8 +54,8 @@
     }
   ],
   "login": {
-    "cpf": "215.300.138-28",
-    "senha": "1234"
+    "cpf": "1223",
+    "senha": "123"
   },
   "despesa": [
     {

@@ -1,4 +1,5 @@
 export interface ProjetoDTO {
   id: number;
-  nome: string;
+  nomeDoProjeto: string;
+  codigoDoProjeto: string;
 }

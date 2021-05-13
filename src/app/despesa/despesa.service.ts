@@ -36,7 +36,7 @@ export class DespesaService {
 
   listarProjetos(): Observable<ProjetoDTO[]> {
     return this.http.get<ProjetoDTO[]>(
-      `${environment.URL_SERVIDOR}` + '/estado'
+      `${environment.URL_SERVIDOR}` + '/projeto'
     );
   }
 

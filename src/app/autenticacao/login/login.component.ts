@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       .login(this.form.value)
       .pipe(take(1))
       .subscribe((response) => {
+        
         this.router.navigate(['despesa/lista']);
       });
   }

@@ -15,12 +15,13 @@ import { DespesaService } from './../despesa.service';
 })
 export class DespesaFormularioComponent implements OnInit {
   despesaForm = this.formBuilder.group({
-    cpf: '',
-    descricao: '',
-    valor: '',
-    projetoId: '',
-    codCategoria: '',
-    notaFiscal: '',
+    id: this.formBuilder.control(''),
+    cpf: this.formBuilder.control(''),
+    projeto: this.formBuilder.control(''),
+    categoria: this.formBuilder.control(''),
+    valor: this.formBuilder.control(''),
+    descricao: this.formBuilder.control(''),
+    notaFiscal: this.formBuilder.control(''),
   });
 
   projetos: any[] = [];
@@ -42,7 +43,14 @@ export class DespesaFormularioComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProjetos();
-    this.codigoDespesa = this.route.snapshot.params['codigo'];
+
+    if(this.route.snapshot.params['codigo']){
+      // Editar Despesas
+      this.codigoDespesa = this.route.snapshot.params['codigo']
+    }else{
+      // Novo
+    }
+
     this.title.setTitle('Nova despesa');
 
     if (this.codigoDespesa) {
@@ -56,37 +64,40 @@ export class DespesaFormularioComponent implements OnInit {
       .listarProjetos()
       .pipe(take(1))
       .subscribe((resposta: ProjetoDTO[]) => {
+        console.log(resposta);
         this.projetos = resposta;
       });
   }
 
-  listarCategorias() {
+  listarCategorias(projeto: any) {
     this.categorias = [];
-    const id: number = this.projeto.id;
+    const id: number = projeto.id;
 
     this.service
       .listarCategorias(id)
       .pipe(take(1))
       .subscribe((categorias: any[]) => {
         this.categorias = categorias;
-        if (
-          this.codigoDespesa &&
-          this.despesaForm.value.projetoId == this.projeto.id
-        ) {
-          this.categoria = {
-            id: this.projeto.categoria.id,
-            nome: this.projeto.categoria.nome,
-          };
-        } else {
-          this.categoria = {
-            id: this.categorias[0].id,
-            nome: this.categorias[0].nome,
-          };
-        }
+        // this.categorias = categorias;
+        // if (
+        //   this.codigoDespesa &&
+        //   this.despesaForm.value.projetoId == projeto.id
+        // ) {
+        //   this.categoria = {
+        //     id: projeto.categoria.id,
+        //     nome: this.projeto.categoria.nome,
+        //   };
+        // } else {
+        //   this.categoria = {
+        //     id: this.categorias[0].id,
+        //     nome: this.categorias[0].nome,
+        //   };
+        // }
       });
   }
 
   carregarDespesa(codigoDespesa: number) {
+    console.log('codigoDespesa', codigoDespesa);
     this.service
       .buscarById(codigoDespesa)
       .pipe(take(1))
@@ -99,7 +110,7 @@ export class DespesaFormularioComponent implements OnInit {
           id: resposta.id,
           nome: resposta.nome,
         };
-        this.listarCategorias();
+        
         this.title.setTitle(`Edição da despesa: ${resposta.id}`);
       });
   }
