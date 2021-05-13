@@ -1,4 +1,71 @@
-<div class="container mt-5 mb-5 pt-5">
+<div class="container mt-5 mb-5 pt-5" style="position: relative;">
+
+  <form (ngSubmit)="cadastrarOuAtualizar()">
+      <div class="form-row">
+          <input
+          type="hidden"
+          name="id"
+          [(ngModel)]="despesa.id"
+          />
+          <div class="form-group col-md-6">
+              <label for="nome">Nome</label>
+              <input
+                  name="nome"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="despesa.nome"
+              />
+          </div>
+          <div class="form-group col-md-6">
+              <label for="sobrenome">E-mail</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  name="sobrenome"
+                  [(ngModel)]="despesa.email"
+              />
+          </div>
+      </div>
+      <div class="form-group" >
+          <label for="nome">Nota fiscal</label>
+          <p-fileUpload #upload
+              name="demo[]"
+              chooseLabel="Escolher uma foto"
+              [showUploadButton]="false"
+              [showCancelButton]="false"
+              [multiple]="false"
+              accept="image/*">
+          </p-fileUpload>
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="cpf">Situação</label>
+              <input
+              type="text"
+              class="form-control"
+              name="cpf"
+              [(ngModel)]="despesa.status">
+          </div>
+          <div class="form-group col-md-4">
+              <label for="rg">Projeto</label>
+              <input
+              type="text"
+              class="form-control"
+              name="rg"
+              [(ngModel)]="despesa.projeto">
+          </div>
+      </div>
+      <button type="submit" class="btn"
+          [class]="operacao ? 'btn-primary' : 'btn-success'">{{ operacao ? "Cadastrar" : "Atualizar" }}
+      </button>
+      <br><br>
+      <a routerLink="/listar/cliente">Voltar para a pesquisa</a>
+  </form>
+</div>
+
+
+
+<!--<div class="container mt-5 mb-5 pt-5">
   <form [formGroup]="despesaForm" (ngSubmit)="cadastrarOuAtualizar()">
     <div class="form-row">
       <input type="hidden" name="id" formControlName="id" />
@@ -17,7 +84,7 @@
           <p-dropdown
             [options]="projetos"
             formControlName="projeto"
-            name="estado"
+            name="projeto"
             optionLabel="nome"
             [filter]="true"
             [style]="{ width: '100%' }"
@@ -94,4 +161,4 @@
     <br /><br />
     <a routerLink="/despesa/lista">Voltar para a pesquisa</a>
   </form>
-</div>
+</div>-->

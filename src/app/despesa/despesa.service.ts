@@ -1,3 +1,4 @@
+import { DespesaDTO } from './../shared/dto/despesa-dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,8 +12,8 @@ import { environment } from './../../environments/environment';
 export class DespesaService {
   constructor(private http: HttpClient) {}
 
-  listar() {
-    return this.http.get(`${environment.URL_SERVIDOR}` + '/despesa');
+  listar(): Observable<DespesaDTO[]> {
+    return this.http.get<DespesaDTO[]>(`${environment.URL_SERVIDOR}` + '/despesa');
   }
 
   buscarById(id: number) {
@@ -36,7 +37,7 @@ export class DespesaService {
 
   listarProjetos(): Observable<ProjetoDTO[]> {
     return this.http.get<ProjetoDTO[]>(
-      `${environment.URL_SERVIDOR}` + '/estado'
+      `${environment.URL_SERVIDOR}` + '/projeto'
     );
   }
 

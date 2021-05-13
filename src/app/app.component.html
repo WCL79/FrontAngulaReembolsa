@@ -3,8 +3,8 @@
 <p-toast position="bottom-center" key="toast"></p-toast>
 
 <p-confirmDialog #cd header="Confirmar" icon="pi pi-exclamation-triangle">
-    <p-footer>
+    <p-header>
         <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
         <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
-    </p-footer>
+    </p-header>
 </p-confirmDialog>

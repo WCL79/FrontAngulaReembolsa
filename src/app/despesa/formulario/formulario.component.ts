@@ -14,14 +14,14 @@ import { DespesaService } from './../despesa.service';
   styleUrls: ['./formulario.component.css'],
 })
 export class DespesaFormularioComponent implements OnInit {
-  despesaForm = this.formBuilder.group({
-    cpf: '',
-    descricao: '',
-    valor: '',
-    projetoId: '',
-    codCategoria: '',
-    notaFiscal: '',
-  });
+
+  despesa: any = {
+      id: " ",
+      nome: " ",
+      email: " ",
+      status: " ",
+      projeto: " "
+    }
 
   projetos: any[] = [];
   projeto: any;
@@ -71,7 +71,7 @@ export class DespesaFormularioComponent implements OnInit {
         this.categorias = categorias;
         if (
           this.codigoDespesa &&
-          this.despesaForm.value.projetoId == this.projeto.id
+          this.despesa.value.projetoId == this.projeto.id
         ) {
           this.categoria = {
             id: this.projeto.categoria.id,
@@ -91,7 +91,7 @@ export class DespesaFormularioComponent implements OnInit {
       .buscarById(codigoDespesa)
       .pipe(take(1))
       .subscribe((resposta: any) => {
-        this.despesaForm.patchValue({
+        this.despesa.patchValue({
           id: resposta.id,
           nome: resposta.nome,
         });
@@ -114,7 +114,7 @@ export class DespesaFormularioComponent implements OnInit {
 
   cadastrar() {
     this.service
-      .salvar(this.despesaForm)
+      .salvar(this.despesa)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -139,7 +139,7 @@ export class DespesaFormularioComponent implements OnInit {
 
   atualizar() {
     this.service
-      .atualizar(this.despesaForm.value)
+      .atualizar(this.despesa.value)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -165,7 +165,7 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   limparFormulario() {
-    this.despesaForm.reset();
+    this.despesa.reset();
     this.categorias = [];
     this.projetos = [];
     this.listarProjetos();
