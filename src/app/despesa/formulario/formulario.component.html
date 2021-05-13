@@ -5,29 +5,27 @@
           <input
           type="hidden"
           name="id"
-          [(ngModel)]="despesa.id"
-          />
+          [(ngModel)]="despesa.id"/>
           <div class="form-group col-md-6">
               <label for="nome">Nome</label>
               <input
                   name="nome"
                   type="text"
                   class="form-control"
-                  [(ngModel)]="despesa.nome"
-              />
+                  [(ngModel)]="despesa.nome"/>
           </div>
           <div class="form-group col-md-6">
-              <label for="sobrenome">E-mail</label>
+              <label for="sobrenome">Cargo</label>
               <input
                   type="text"
                   class="form-control"
-                  name="sobrenome"
-                  [(ngModel)]="despesa.email"
+                  name="cargo"
+                  [(ngModel)]="despesa.cargo"
               />
           </div>
       </div>
       <div class="form-group" >
-          <label for="nome">Nota fiscal</label>
+          <label for="nome">Foto</label>
           <p-fileUpload #upload
               name="demo[]"
               chooseLabel="Escolher uma foto"
@@ -37,31 +35,87 @@
               accept="image/*">
           </p-fileUpload>
       </div>
+      <div class="form-group">
+          <label for="email">E-mail</label>
+          <input
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="despesa.email" />
+      </div>
       <div class="form-row">
           <div class="form-group col-md-6">
-              <label for="cpf">Situação</label>
+              <label for="cpf">CPF</label>
               <input
               type="text"
               class="form-control"
               name="cpf"
-              [(ngModel)]="despesa.status">
+              [(ngModel)]="despesa.cpf">
           </div>
           <div class="form-group col-md-4">
-              <label for="rg">Projeto</label>
+              <label for="rg">Número da Nota</label>
               <input
               type="text"
               class="form-control"
-              name="rg"
-              [(ngModel)]="despesa.projeto">
+              name="numeroNaNota"
+              [(ngModel)]="despesa.numeroNaNota">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="data_nasc">Data da emissão da nota</label>
+              <input
+              type="date"
+              class="form-control"
+              name="dataEmissaoNota"
+              [(ngModel)]="despesa.dataEmissaoNota">
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="">Estado</label>
+              <p-dropdown
+                  [options]="projetos"
+                  [(ngModel)]="projeto"
+                  name="projeto"
+                  optionLabel="nome"
+                  [filter]="true"
+                  [style]="{'width':'100%'}"
+                  placeholder="Selecione um Projeto"
+                  [showClear]="true"
+                  (onChange)="listarProjetos()">
+                  <ng-template pTemplate="selectedItem">
+                      <div *ngIf="projeto">
+                          <div>{{projeto.nome}}</div>
+                      </div>
+                  </ng-template>
+              </p-dropdown>
+          </div>
+          <div class="form-group col-md-6">
+              <label for="">Categoria</label>
+              <p-dropdown
+                  [options]="categorias"
+                  [disabled]="!projeto"
+                  [(ngModel)]="categoria"
+                  emptyFilterMessage="Nenhuma categoria cadastrada"
+                  name="categoria"
+                  optionLabel="nome"
+                  [filter]="true"
+                  [style]="{'width':'100%'}">
+                  <ng-template pTemplate="selectedItem">
+                      <div *ngIf="categoria">
+                          <div>{{categoria.nome}}</div>
+                      </div>
+                  </ng-template>
+              </p-dropdown>
           </div>
       </div>
       <button type="submit" class="btn"
           [class]="operacao ? 'btn-primary' : 'btn-success'">{{ operacao ? "Cadastrar" : "Atualizar" }}
       </button>
       <br><br>
-      <a routerLink="/listar/cliente">Voltar para a pesquisa</a>
+      <a routerLink="/despesa/lista">Voltar para a pesquisa</a>
   </form>
 </div>
+
 
 
 

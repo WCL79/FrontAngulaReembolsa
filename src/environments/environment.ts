@@ -5,7 +5,7 @@ import { Environment } from './environment.interface';
 
 export const environment: Environment = {
   production: false,
-  URL_SERVIDOR: 'http://localhost:3000',
+  URL_SERVIDOR: 'http://localhost:8080',
 };
 
 /*
