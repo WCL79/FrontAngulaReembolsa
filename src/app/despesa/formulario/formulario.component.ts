@@ -14,7 +14,6 @@ import { DespesaService } from './../despesa.service';
   styleUrls: ['./formulario.component.css'],
 })
 export class DespesaFormularioComponent implements OnInit {
-<<<<<<< HEAD
 
   despesa: any = {
       id: " ",
@@ -23,17 +22,6 @@ export class DespesaFormularioComponent implements OnInit {
       status: " ",
       projeto: " "
     }
-=======
-  despesaForm = this.formBuilder.group({
-    id: this.formBuilder.control(''),
-    cpf: this.formBuilder.control(''),
-    projeto: this.formBuilder.control(''),
-    categoria: this.formBuilder.control(''),
-    valor: this.formBuilder.control(''),
-    descricao: this.formBuilder.control(''),
-    notaFiscal: this.formBuilder.control(''),
-  });
->>>>>>> 581fb1113e1cda53f389034f6e17a6c0d42ec31e
 
   projetos: any[] = [];
   projeto: any;
@@ -89,7 +77,6 @@ export class DespesaFormularioComponent implements OnInit {
       .pipe(take(1))
       .subscribe((categorias: any[]) => {
         this.categorias = categorias;
-<<<<<<< HEAD
         if (
           this.codigoDespesa &&
           this.despesa.value.projetoId == this.projeto.id
@@ -104,7 +91,6 @@ export class DespesaFormularioComponent implements OnInit {
             nome: this.categorias[0].nome,
           };
         }
-=======
         // this.categorias = categorias;
         // if (
         //   this.codigoDespesa &&
@@ -120,7 +106,6 @@ export class DespesaFormularioComponent implements OnInit {
         //     nome: this.categorias[0].nome,
         //   };
         // }
->>>>>>> 581fb1113e1cda53f389034f6e17a6c0d42ec31e
       });
   }
 
@@ -138,7 +123,7 @@ export class DespesaFormularioComponent implements OnInit {
           id: resposta.id,
           nome: resposta.nome,
         };
-        
+
         this.title.setTitle(`Edição da despesa: ${resposta.id}`);
       });
   }
