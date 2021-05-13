@@ -22,5 +22,6 @@ export class AutenticacaoService {
 
   setToken(token: string) {
     localStorage.setItem(this.TOKEN, token);
+    localStorage.clear();
   }
 }
