@@ -122,17 +122,18 @@ export class DespesaFormularioComponent implements OnInit {
     this.despesaService
       .buscarById(codigoDespesa)
       .pipe(take(1))
-      .subscribe((resposta: any) => {
+      .subscribe((despesa: any) => {
         this.despesaForm.patchValue({
-          id: resposta.id,
-          nome: resposta.nome,
+          id: despesa.id,
+          zupperId: despesa.zupperId,
+          projetoId: despesa.projetoId,
+          descricao: despesa.descricao,
+          valor: despesa.valor,
+          dataEmissaoNota: despesa.dataEmissaoNota,
+          status: despesa.status,
         });
-        this.projeto = {
-          id: resposta.id,
-          nome: resposta.nome,
-        };
 
-        this.title.setTitle(`Edição da despesa: ${resposta.id}`);
+        this.title.setTitle(`Edição da despesa: ${despesa.id}`);
       });
   }
 

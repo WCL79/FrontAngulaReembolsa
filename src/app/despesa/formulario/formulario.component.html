@@ -2,7 +2,7 @@
   <form (ngSubmit)="cadastrarOuAtualizar()" [formGroup]="despesaForm">
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="">Projetos</label>
+        <label for="">Projeto</label>
         <p-dropdown
           [options]="projetos"
           formControlName="projetoId"
@@ -35,7 +35,7 @@
     <div class="form-row">
       <input type="hidden" name="id" formControlName="id" />
       <div class="form-group col-md-6">
-        <label for="nome">descrição</label>
+        <label for="nome">Descrição</label>
         <input
           name="descricao"
           type="text"
