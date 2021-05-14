@@ -137,16 +137,17 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   cadastrarOuAtualizar() {
+    const body = this.mergeZupperEProjeto();
     if (this.operacao) {
-      this.cadastrar();
+      this.cadastrar(body);
     } else {
-      this.atualizar();
+      this.atualizar(body);
     }
   }
 
-  cadastrar() {
+  cadastrar(body: any) {
     this.despesaService
-      .salvar(this.despesaForm.value)
+      .salvar(body)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -169,9 +170,9 @@ export class DespesaFormularioComponent implements OnInit {
       );
   }
 
-  atualizar() {
+  atualizar(body: any) {
     this.despesaService
-      .atualizar(this.despesaForm.value)
+      .atualizar(body)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -201,5 +202,22 @@ export class DespesaFormularioComponent implements OnInit {
     this.categorias = [];
     this.projetos = [];
     this.listarProjetos();
+  }
+
+  // TODO Remover quando o backend trazer informações do zupper e do projeto
+  private mergeZupperEProjeto() {
+    const { zupperId, projetoId } = this.despesaForm.value;
+    const [zupperSelecionado] = this.zuppers.filter(
+      (zupper) => zupper.cpf === zupperId
+    );
+    const [projetoSelecionado] = this.projetos.filter(
+      (projeto) => projeto.id === projetoId
+    );
+
+    return {
+      ...this.despesaForm.value,
+      zupper: zupperSelecionado,
+      projeto: projetoSelecionado,
+    };
   }
 }

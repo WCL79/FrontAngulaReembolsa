@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'novo', component: DespesaFormularioComponent },
   { path: 'lista', component: DespesaTabelaComponent },
   { path: 'editar/:codigo', component: DespesaFormularioComponent },
+  { path: '', redirectTo: 'lista' },
 ];
 
 @NgModule({
