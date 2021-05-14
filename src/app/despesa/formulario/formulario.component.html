@@ -1,113 +1,68 @@
 <div class="container mt-5 mb-5 pt-5" style="position: relative">
   <form (ngSubmit)="cadastrarOuAtualizar()" [formGroup]="despesaForm">
     <div class="form-row">
-      <input type="hidden" name="id" formGroupName="id" />
-      <div class="form-group col-md-6">
-        <label for="nome">Nome</label>
-        <input
-          name="nome"
-          type="text"
-          class="form-control"
-          formGroupName="nome"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="sobrenome">Cargo</label>
-        <input
-          type="text"
-          class="form-control"
-          name="cargo"
-          formGroupName="cargo"
-        />
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="nome">Foto</label>
-      <p-fileUpload
-        #upload
-        name="demo[]"
-        chooseLabel="Escolher uma foto"
-        [showUploadButton]="false"
-        [showCancelButton]="false"
-        [multiple]="false"
-        accept="image/*"
-      >
-      </p-fileUpload>
-    </div>
-    <div class="form-group">
-      <label for="email">E-mail</label>
-      <input
-        type="email"
-        class="form-control"
-        name="email"
-        formGroupName="email"
-      />
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="cpf">CPF</label>
-        <input
-          type="text"
-          class="form-control"
-          name="cpf"
-          formGroupName="cpf"
-        />
-      </div>
-      <div class="form-group col-md-4">
-        <label for="rg">Número da Nota</label>
-        <input
-          type="text"
-          class="form-control"
-          name="numeroNaNota"
-          formGroupName="numeroNaNota"
-        />
-      </div>
-      <div class="form-group col-md-2">
-        <label for="data_nasc">Data da emissão da nota</label>
-        <input
-          type="date"
-          class="form-control"
-          name="dataEmissaoNota"
-          formGroupName="dataEmissaoNota"
-        />
-      </div>
-    </div>
-    <div class="form-row">
       <div class="form-group col-md-6">
         <label for="">Projetos</label>
         <p-dropdown
           [options]="projetos"
-          [(ngModel)]="projeto"
-          name="projeto"
-          optionLabel="nome"
+          formControlName="projetoId"
+          optionLabel="nomeDoProjeto"
+          optionValue="id"
           [filter]="true"
           [style]="{ width: '100%' }"
           placeholder="Selecione um Projeto"
           [showClear]="true"
-          (onChange)="listarProjetos()"
         >
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="projeto">
-              <div>{{ projeto.nome }}</div>
-            </div>
-          </ng-template>
         </p-dropdown>
       </div>
+
       <div class="form-group col-md-6">
-        <label for="">Categoria</label>
+        <label for="">Zupper</label>
         <p-dropdown
-          [options]="categorias"
-          [disabled]="!projeto"
-          [(ngModel)]="categoria"
-          emptyFilterMessage="Nenhuma categoria cadastrada"
-          name="categoria"
-          optionLabel="nome"
+          [options]="zuppers"
+          formControlName="zupperId"
+          optionLabel="nomeCompleto"
+          optionValue="cpf"
           [filter]="true"
           [style]="{ width: '100%' }"
+          placeholder="Selecione o Zupper"
+          [showClear]="true"
         >
         </p-dropdown>
       </div>
     </div>
+
+    <div class="form-row">
+      <input type="hidden" name="id" formControlName="id" />
+      <div class="form-group col-md-6">
+        <label for="nome">descrição</label>
+        <input
+          name="descricao"
+          type="text"
+          class="form-control"
+          formControlName="descricao"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="sobrenome">Valor</label>
+        <input
+          type="number"
+          class="form-control"
+          name="valor"
+          formControlName="valor"
+        />
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="data_nasc">Data da emissão da nota</label>
+      <input
+        type="date"
+        class="form-control"
+        name="dataEmissaoNota"
+        formControlName="dataEmissaoNota"
+      />
+    </div>
+
     <button
       type="submit"
       class="btn"

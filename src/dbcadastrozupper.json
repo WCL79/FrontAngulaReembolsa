@@ -1,5 +1,5 @@
 {
-  "zupper": [
+  "zuppers": [
     {
       "cpf": "215.300.138-28",
       "email": "weslley.lima@zup.com.br",
@@ -131,25 +131,13 @@
   },
   "despesas": [
     {
-      "id": "3",
-      "nome": "foobar3",
-      "email": "teste3@teste.com",
-      "status": "nomedostatus",
-      "projeto": "projeto3"
-    },
-    {
-      "id": "2",
-      "nome": "foobar2",
-      "email": "teste2@teste.com",
-      "status": "nomedostatus",
-      "projeto": "projeto2"
-    },
-    {
-      "id": "3",
-      "nome": "foobar3",
-      "email": "teste3@teste.com",
-      "status": "nomedostatus",
-      "projeto": "projeto3"
+      "id": "4xVf56R",
+      "zupperId": "215.300.138-28",
+      "projetoId": 1,
+      "descricao": ";alksdjf;lakjsdf;lkajsdf;lkajsdflajkhgaksejrhfgqwerjnm",
+      "valor": 123,
+      "dataEmissaoNota": "2021-05-13",
+      "status": "pendente"
     }
   ]
 }

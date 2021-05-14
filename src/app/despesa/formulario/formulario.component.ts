@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { take } from 'rxjs/operators';
 import { ProjetoDTO } from 'src/app/shared/dto/projeto-dto';
+import { ZupperService } from 'src/app/zupper/cadastrar-colaborador/colaborador.service';
 
 import { DespesaService } from './../despesa.service';
 
@@ -15,11 +16,13 @@ import { DespesaService } from './../despesa.service';
 })
 export class DespesaFormularioComponent implements OnInit {
   despesaForm = this.formBuilder.group({
-    id: ' ',
-    nome: ' ',
-    email: ' ',
-    status: ' ',
-    projeto: ' ',
+    id: '',
+    zupperId: ['', Validators.required],
+    projetoId: ['', Validators.required],
+    descricao: ['', Validators.required],
+    valor: ['', Validators.required],
+    dataEmissaoNota: ['', Validators.required],
+    status: 'pendente',
   });
 
   projetos: any[] = [];
@@ -30,40 +33,47 @@ export class DespesaFormularioComponent implements OnInit {
 
   operacao: boolean = true;
 
+  zuppers: any[] = [];
+
   constructor(
-    private readonly service: DespesaService,
+    private readonly despesaService: DespesaService,
     private readonly messageService: MessageService,
     private readonly route: ActivatedRoute,
     private readonly title: Title,
     private readonly router: Router,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly zupperService: ZupperService
   ) {}
 
   ngOnInit(): void {
     this.listarProjetos();
+    this.listarZuppers();
 
-    if (this.route.snapshot.params['codigo']) {
-      // Editar Despesas
-      this.codigoDespesa = this.route.snapshot.params['codigo'];
-    } else {
-      // Novo
-    }
-
-    this.title.setTitle('Nova despesa');
+    this.codigoDespesa = this.route.snapshot.params['codigo'];
 
     if (this.codigoDespesa) {
       this.operacao = false;
       this.carregarDespesa(this.codigoDespesa);
+    } else {
+      this.title.setTitle('Nova despesa');
     }
   }
 
   listarProjetos() {
-    this.service
+    this.despesaService
       .listarProjetos()
       .pipe(take(1))
       .subscribe((resposta: ProjetoDTO[]) => {
-        console.log(resposta);
         this.projetos = resposta;
+      });
+  }
+
+  listarZuppers() {
+    this.zupperService
+      .listar()
+      .pipe(take(1))
+      .subscribe((resposta) => {
+        this.zuppers = resposta as any[];
       });
   }
 
@@ -71,7 +81,7 @@ export class DespesaFormularioComponent implements OnInit {
     this.categorias = [];
     const id: number = projeto.id;
 
-    this.service
+    this.despesaService
       .listarCategorias(id)
       .pipe(take(1))
       .subscribe((categorias: any[]) => {
@@ -109,8 +119,7 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   carregarDespesa(codigoDespesa: number) {
-    console.log('codigoDespesa', codigoDespesa);
-    this.service
+    this.despesaService
       .buscarById(codigoDespesa)
       .pipe(take(1))
       .subscribe((resposta: any) => {
@@ -136,8 +145,8 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   cadastrar() {
-    this.service
-      .salvar(this.despesaForm)
+    this.despesaService
+      .salvar(this.despesaForm.value)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -161,7 +170,7 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   atualizar() {
-    this.service
+    this.despesaService
       .atualizar(this.despesaForm.value)
       .pipe(take(1))
       .subscribe(

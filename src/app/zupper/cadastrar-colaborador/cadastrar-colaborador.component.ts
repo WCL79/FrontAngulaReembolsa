@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { take } from 'rxjs/operators';
 
-import { ColaboradorService } from './colaborador.service';
+import { ZupperService } from './colaborador.service';
 
 @Component({
   selector: 'app-cadastrar-colaborador',
@@ -46,7 +46,7 @@ export class ZupperFormularioComponent implements OnInit {
   operacao: boolean = true;
 
   constructor(
-    private readonly service: ColaboradorService,
+    private readonly service: ZupperService,
     private readonly messageService: MessageService,
     private readonly route: ActivatedRoute,
     private readonly title: Title,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { ColaboradorService } from '../cadastrar-colaborador/colaborador.service';
+import { ZupperService } from '../cadastrar-colaborador/colaborador.service';
 
 @Component({
   selector: 'app-tabela',
@@ -14,7 +14,7 @@ export class ZupperTabelaComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private service: ColaboradorService,
+    private service: ZupperService,
     private confirmarService: ConfirmationService,
     private messageService: MessageService,
     private title: Title

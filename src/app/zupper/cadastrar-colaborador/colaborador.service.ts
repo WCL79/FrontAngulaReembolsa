@@ -5,32 +5,33 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ColaboradorService {
+export class ZupperService {
   constructor(private http: HttpClient) {}
 
   listar() {
-    return this.http.get(`${environment.URL_SERVIDOR}` + 'zupper');
+    return this.http.get(`${environment.URL_SERVIDOR}` + '/zuppers');
   }
 
   buscarById(cpf: number) {
-    return this.http.get(`${environment.URL_SERVIDOR}` + '/zupper/' + cpf);
+    return this.http.get(`${environment.URL_SERVIDOR}` + '/zuppers/' + cpf);
   }
 
   salvar(colaborador: any) {
     return this.http.post(
-      `${environment.URL_SERVIDOR}` + '/zupper', colaborador
+      `${environment.URL_SERVIDOR}` + '/zuppers',
+      colaborador
     );
   }
 
   atualizar(colaborador: any) {
     return this.http.put(
-      `${environment.URL_SERVIDOR}` + '/zupper/' + colaborador.cpf,
+      `${environment.URL_SERVIDOR}` + '/zuppers/' + colaborador.cpf,
       colaborador
     );
   }
 
   excluir(cpf: number) {
-    return this.http.delete(`${environment.URL_SERVIDOR}` + '/zupper/' + cpf);
+    return this.http.delete(`${environment.URL_SERVIDOR}` + '/zuppers/' + cpf);
   }
 
   listarProjetos() {
