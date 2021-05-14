@@ -16,8 +16,6 @@ export class AutenticacaoService {
       .pipe(tap((response: HttpResponse <Object>) => {
         let token = response.headers.get("Authorization");
 
-        console.log(response);
-
         this.setToken(token ? token : 'null');
       }));
   }
@@ -28,6 +26,5 @@ export class AutenticacaoService {
 
   setToken(token: string) {
     localStorage.setItem(this.TOKEN, token);
-    localStorage.clear();
   }
 }
