@@ -1,58 +1,58 @@
-import { DespesaDTO } from './../shared/dto/despesa-dto';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ProjetoDTO } from '../shared/dto/projeto-dto';
 import { environment } from './../../environments/environment';
-import { AutenticacaoService } from '../autenticacao/autenticacao.service';
+import { DespesaDTO } from './../shared/dto/despesa-dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DespesaService {
-  constructor(private http: HttpClient, private autenticacao: AutenticacaoService) {}
-
-  criaHeaderAutenticacao(): {headers: HttpHeaders, observe: 'body', 'withCredentials': true} {
-    var token = this.autenticacao.getToken();
-    var h: HttpHeaders = new HttpHeaders().set('Authorization', token ? token : 'null');
-    let teste:  {headers: HttpHeaders, observe: 'body', 'withCredentials': true} = {'headers': h, 'observe': 'body', 'withCredentials': true};
-    console.log(teste);
-    return teste;
-  }
+  constructor(private httpClient: HttpClient) {}
 
   listar(): Observable<DespesaDTO[]> {
-    return this.http.get<DespesaDTO[]>(`${environment.URL_SERVIDOR}` + '/despesas/', this.criaHeaderAutenticacao());
+    return this.httpClient.get<DespesaDTO[]>(
+      `${environment.URL_SERVIDOR}` + '/despesas/'
+    );
   }
 
   buscarById(id: number) {
-    return this.http.get(`${environment.URL_SERVIDOR}` + '/despesas/' + id + '/', this.criaHeaderAutenticacao());
+    return this.httpClient.get(
+      `${environment.URL_SERVIDOR}` + '/despesas/' + id + '/'
+    );
   }
 
   salvar(despesa: any) {
-    return this.http.post(`${environment.URL_SERVIDOR}` + '/despesas/', despesa, this.criaHeaderAutenticacao());
+    return this.httpClient.post(
+      `${environment.URL_SERVIDOR}` + '/despesas/',
+      despesa
+    );
   }
 
   atualizar(despesa: any) {
-    return this.http.put(
+    return this.httpClient.put(
       `${environment.URL_SERVIDOR}` + '/despesas/' + despesa.id + '/',
-      despesa, this.criaHeaderAutenticacao()
+      despesa
     );
   }
 
   excluir(id: number) {
-    return this.http.delete(`${environment.URL_SERVIDOR}` + '/despesas/' + id + '/', this.criaHeaderAutenticacao());
+    return this.httpClient.delete(
+      `${environment.URL_SERVIDOR}` + '/despesas/' + id + '/'
+    );
   }
 
   listarProjetos(): Observable<ProjetoDTO[]> {
-    return this.http.get<ProjetoDTO[]>(
-      `${environment.URL_SERVIDOR}` + '/projetos/', this.criaHeaderAutenticacao()
+    return this.httpClient.get<ProjetoDTO[]>(
+      `${environment.URL_SERVIDOR}` + '/projetos/'
     );
   }
 
   listarCategorias(id: number): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${environment.URL_SERVIDOR}` + '/categorias/' + '?projeto=' + id, this.criaHeaderAutenticacao()
+    return this.httpClient.get<any[]>(
+      `${environment.URL_SERVIDOR}` + '/categorias/' + '?projeto=' + id
     );
   }
 }

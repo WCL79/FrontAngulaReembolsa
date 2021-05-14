@@ -14,14 +14,13 @@ import { DespesaService } from './../despesa.service';
   styleUrls: ['./formulario.component.css'],
 })
 export class DespesaFormularioComponent implements OnInit {
-
-  despesa: any = {
-      id: " ",
-      nome: " ",
-      email: " ",
-      status: " ",
-      projeto: " "
-    }
+  despesaForm = this.formBuilder.group({
+    id: ' ',
+    nome: ' ',
+    email: ' ',
+    status: ' ',
+    projeto: ' ',
+  });
 
   projetos: any[] = [];
   projeto: any;
@@ -43,10 +42,10 @@ export class DespesaFormularioComponent implements OnInit {
   ngOnInit(): void {
     this.listarProjetos();
 
-    if(this.route.snapshot.params['codigo']){
+    if (this.route.snapshot.params['codigo']) {
       // Editar Despesas
-      this.codigoDespesa = this.route.snapshot.params['codigo']
-    }else{
+      this.codigoDespesa = this.route.snapshot.params['codigo'];
+    } else {
       // Novo
     }
 
@@ -79,7 +78,7 @@ export class DespesaFormularioComponent implements OnInit {
         this.categorias = categorias;
         if (
           this.codigoDespesa &&
-          this.despesa.value.projetoId == this.projeto.id
+          this.despesaForm.value.projetoId == this.projeto.id
         ) {
           this.categoria = {
             id: this.projeto.categoria.id,
@@ -115,7 +114,7 @@ export class DespesaFormularioComponent implements OnInit {
       .buscarById(codigoDespesa)
       .pipe(take(1))
       .subscribe((resposta: any) => {
-        this.despesa.patchValue({
+        this.despesaForm.patchValue({
           id: resposta.id,
           nome: resposta.nome,
         });
@@ -138,7 +137,7 @@ export class DespesaFormularioComponent implements OnInit {
 
   cadastrar() {
     this.service
-      .salvar(this.despesa)
+      .salvar(this.despesaForm)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -163,7 +162,7 @@ export class DespesaFormularioComponent implements OnInit {
 
   atualizar() {
     this.service
-      .atualizar(this.despesa.value)
+      .atualizar(this.despesaForm.value)
       .pipe(take(1))
       .subscribe(
         (resposta) => {
@@ -189,7 +188,7 @@ export class DespesaFormularioComponent implements OnInit {
   }
 
   limparFormulario() {
-    this.despesa.reset();
+    this.despesaForm.reset();
     this.categorias = [];
     this.projetos = [];
     this.listarProjetos();

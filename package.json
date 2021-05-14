@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:db": "json-server --watch ./src/dbcadastrozupper.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "start:db": "json-server --watch ./src/dbcadastrozupper.json"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

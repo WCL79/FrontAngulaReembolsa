@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./zupper/zupper.module').then((m) => m.ZupperModule),
   },
+  {
+    path: '**',
+    redirectTo: 'despesa',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
